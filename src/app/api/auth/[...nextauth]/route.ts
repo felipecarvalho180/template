@@ -1,11 +1,9 @@
 import { request } from "@/api";
-import { encryptToken } from "@/service/cyptojs";
-import { AES, enc } from "crypto-js";
-import NextAuth, { AuthOptions, User } from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { cookies } from "next/headers";
 
-export const authOptions = {
+export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: "credentials",
@@ -18,13 +16,27 @@ export const authOptions = {
           throw new Error("Invalid credentials");
         }
 
-        const { data } = await request.post("/me", {
-          email: credentials.email,
-          password: credentials.password,
-        });
+        try {
+          const response = await request.post("/me", {
+            email: credentials.email,
+            password: credentials.password,
+          });
+          const { data } = response;
 
-        const token = encryptToken(data);
+          if (!data) throw new Error("Invalid credentials");
 
+          return data;
+        } catch (error) {
+          throw new Error("Invalid credentials");
+        }
+      },
+    }),
+  ],
+  callbacks: {
+    async signIn(params) {
+      const { user: token } = params;
+
+      if (token) {
         cookies().set({
           name: "token",
           value: token,
@@ -33,11 +45,12 @@ export const authOptions = {
           httpOnly: true,
         });
 
-        return null;
-      },
-    }),
-  ],
-  secret: process.env.NEXTAUTH_SECRET,
+        return Promise.resolve(true);
+      }
+
+      throw new Error("Invalid credentials");
+    },
+  },
 };
 
 const handler = NextAuth(authOptions);
