@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { Toaster, toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 interface Props {
   hasTokenError: boolean;
@@ -22,9 +22,7 @@ export default function Form({ hasTokenError }: Props) {
     if (response?.error) {
       toast.error(response.error);
     } else {
-      setTimeout(() => {
-        router.push("/");
-      }, 3000);
+      router.push("/");
     }
   };
 
@@ -36,7 +34,6 @@ export default function Form({ hasTokenError }: Props) {
 
   return (
     <div>
-      <Toaster />
       <button onClick={handleSubmit}>Login</button>
     </div>
   );
