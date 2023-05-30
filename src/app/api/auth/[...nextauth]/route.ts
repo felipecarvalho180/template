@@ -1,34 +1,7 @@
 import { request } from "@/server";
-import { sleep } from "@/utils/helpers/sleep";
-import NextAuth, { Account, NextAuthOptions, Profile } from "next-auth";
-import CredentialsProvider, {
-  CredentialInput,
-} from "next-auth/providers/credentials";
+import NextAuth, { NextAuthOptions } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
 import { cookies } from "next/headers";
-
-const mockApi = {
-  id: "1",
-  email: "Mock Email",
-  name: "Mock Name",
-  lastName: "Mock LastName",
-  accessToken: "logged",
-};
-
-interface Params {
-  user: {
-    id: string;
-    email: string;
-    name: string;
-    lastName: string;
-    accessToken: string;
-  };
-  account: Account | null;
-  profile?: Profile;
-  email?: {
-    verificationRequest?: boolean;
-  };
-  credentials?: Record<string, CredentialInput>;
-}
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -44,8 +17,15 @@ export const authOptions: NextAuthOptions = {
         }
 
         try {
-          await sleep(1500);
-          return mockApi;
+          const response = await request.post("/me", {
+            email: credentials.email,
+            password: credentials.password,
+          });
+          const { data } = response;
+
+          if (!data) throw new Error("Invalid credentials");
+
+          return data;
         } catch (error) {
           throw new Error("Invalid credentials");
         }
@@ -53,16 +33,13 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    // @ts-ignore
-    async signIn(params: Params) {
-      const {
-        user: { accessToken },
-      } = params;
-      console.log(params);
-      if (accessToken) {
+    async signIn(params) {
+      const { user: token } = params;
+
+      if (token) {
         cookies().set({
           name: "token",
-          value: accessToken,
+          value: token,
           // @ts-ignore
           secure: true,
           httpOnly: true,
