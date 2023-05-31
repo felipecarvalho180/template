@@ -14,8 +14,13 @@ export const api = {
       ...init,
       headers: currentHeaders,
     });
-    const data = await res.json();
-    return data as T;
+
+    if (res.ok) {
+      const data = await res.json();
+      return data as T;
+    }
+
+    throw res;
   },
   post: async <T = any>(input: RequestInfo, init?: RequestInit) => {
     const currentHeaders = headers();
@@ -25,9 +30,13 @@ export const api = {
       headers: currentHeaders,
       method: "POST",
     });
-    console.log(res);
-    const { data } = await res.json();
-    return data as T;
+
+    if (res.ok) {
+      const { data } = await res.json();
+      return data as T;
+    }
+
+    throw res;
   },
   put: async <T = any>(input: RequestInfo, init?: RequestInit) => {
     const currentHeaders = headers();
@@ -37,8 +46,13 @@ export const api = {
       headers: currentHeaders,
       method: "PUT",
     });
-    const data = await res.json();
-    return data as T;
+
+    if (res.ok) {
+      const { data } = await res.json();
+      return data as T;
+    }
+
+    throw res;
   },
   patch: async <T = any>(input: RequestInfo, init?: RequestInit) => {
     const currentHeaders = headers();
@@ -48,8 +62,13 @@ export const api = {
       headers: currentHeaders,
       method: "PATCH",
     });
-    const data = await res.json();
-    return data as T;
+
+    if (res.ok) {
+      const { data } = await res.json();
+      return data as T;
+    }
+
+    throw res;
   },
   delete: async <T = any>(input: RequestInfo, init?: RequestInit) => {
     const currentHeaders = headers();
@@ -59,7 +78,12 @@ export const api = {
       headers: currentHeaders,
       method: "DELETE",
     });
-    const data = await res.json();
-    return data as T;
+
+    if (res.ok) {
+      const { data } = await res.json();
+      return data as T;
+    }
+
+    throw res;
   },
 };
