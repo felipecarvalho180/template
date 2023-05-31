@@ -16,7 +16,7 @@ export default function Header({ headerLinks }: Props) {
     <ul className="flex py-4 px-0">
       {headerLinks.map(({ href, text }) => (
         <li key={`link_${href}_${text}`} className={listItem()}>
-          <Link href="/ssr">SSR Page</Link>
+          <Link href={href}>{text}</Link>
         </li>
       ))}
       <li className={listItem()}>

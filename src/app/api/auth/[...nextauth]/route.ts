@@ -51,6 +51,7 @@ export const authOptions: NextAuthOptions = {
       throw new Error("Invalid credentials");
     },
   },
+  secret: "teste",
 };
 
 const handler = NextAuth(authOptions);

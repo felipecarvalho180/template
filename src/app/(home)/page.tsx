@@ -1,4 +1,4 @@
-import { getMemories } from "@/server/memories/memories.server";
+import { getMemories } from "@/api/memories/memories.api";
 
 export default async function Home() {
   const memories = await getMemories();

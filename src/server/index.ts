@@ -1,5 +1,5 @@
+import { getHeaderToken } from "@/utils/helpers/getHeaderToken";
 import axios, { AxiosError } from "axios";
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 export const request = axios.create({
@@ -7,7 +7,7 @@ export const request = axios.create({
 });
 
 request.interceptors.request.use((config) => {
-  const token = cookies().get("token")?.value;
+  const token = getHeaderToken();
 
   if (!token) {
     return config;
@@ -19,7 +19,7 @@ request.interceptors.request.use((config) => {
 
 request.interceptors.response.use(
   (config) => {
-    const token = cookies().get("token")?.value;
+    const token = getHeaderToken();
 
     if (!token) {
       return config;
@@ -30,7 +30,7 @@ request.interceptors.response.use(
   (error: AxiosError) => {
     const expiredSessionError = 401;
     if (error.response?.status === expiredSessionError) {
-      return redirect("/api/logout");
+      return redirect("/api/logout/401");
     }
 
     if (error.response?.status === expiredSessionError) {
