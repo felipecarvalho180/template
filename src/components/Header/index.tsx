@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { listItem } from "./styles";
+import { button } from "@/styles/button";
 
 interface HeaderLink {
   href: string;
@@ -15,11 +15,14 @@ export default function Header({ headerLinks }: Props) {
   return (
     <ul className="flex py-4 px-0">
       {headerLinks.map(({ href, text }) => (
-        <li key={`link_${href}_${text}`} className={listItem()}>
+        <li
+          key={`link_${href}_${text}`}
+          className={button({ bg: "headerLinks" })}
+        >
           <Link href={href}>{text}</Link>
         </li>
       ))}
-      <li className={listItem()}>
+      <li className={button({ bg: "headerLinks" })}>
         {/* <ButtonLink onClick={onSignout}>Logout</ButtonLink> */}
       </li>
     </ul>

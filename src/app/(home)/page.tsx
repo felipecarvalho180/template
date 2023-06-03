@@ -1,8 +1,13 @@
 import { getMemories } from "@/api/memories/memories.api";
 import { Suspense } from "react";
 
+interface Memory {
+  name: string;
+  description: string;
+}
+
 export default async function Home() {
-  const memories = await getMemories();
+  const memories: Memory[] = await getMemories();
 
   return (
     <div>
@@ -12,9 +17,11 @@ export default async function Home() {
         {memories?.length === 0 || !memories ? (
           <p className="whitespace-pre-line">Nenhuma memória encontrada</p>
         ) : (
-          <p className="whitespace-pre-line">
-            {JSON.stringify(memories, null, 2)}
-          </p>
+          memories.map((memory, index) => (
+            <div key={`${memory.name}_${memory.description}_${index}`}>
+              <h1>{memory.name}</h1>
+            </div>
+          ))
         )}
       </Suspense>
     </div>

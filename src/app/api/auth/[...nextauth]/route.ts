@@ -1,5 +1,5 @@
-import { request } from "@/server";
-import NextAuth, { NextAuthOptions } from "next-auth";
+import { sleep } from "@/utils/helpers/sleep";
+import NextAuth, { NextAuthOptions, User } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { cookies } from "next/headers";
 
@@ -17,15 +17,12 @@ export const authOptions: NextAuthOptions = {
         }
 
         try {
-          const response = await request.post("/me", {
-            email: credentials.email,
-            password: credentials.password,
-          });
-          const { data } = response;
+          await sleep(300);
+          const data = "logged";
 
           if (!data) throw new Error("Invalid credentials");
 
-          return data;
+          return data as unknown as User;
         } catch (error) {
           throw new Error("Invalid credentials");
         }
