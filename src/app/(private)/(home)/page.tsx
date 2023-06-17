@@ -1,5 +1,6 @@
 import { getMemories } from "@/api/memories/memories.api";
 import { Suspense } from "react";
+import LogoutButton from "./LogoutButton";
 
 interface Memory {
   name: string;
@@ -11,7 +12,7 @@ export default async function Home() {
 
   return (
     <div>
-      <a href="/api/logout">Logout</a>
+      <LogoutButton />
       <h1>Home</h1>
       <Suspense fallback={<p>Carregando</p>}>
         {memories?.length === 0 || !memories ? (
