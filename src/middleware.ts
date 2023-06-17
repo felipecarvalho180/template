@@ -1,22 +1,26 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
+import { NextRequest } from "next/server";
+import { ROUTES } from "./utils";
 
-export default async function middleware(request: NextRequest) {
-  const token = request.cookies.get("token")?.value;
-  const expiredToken = request.cookies.get("expiredToken")?.value;
-  const homeUrl = "http://localhost:3000/";
-  const loginUrl = "http://localhost:3000/login";
+export function middleware(request: NextRequest) {
+  const token = request.cookies.get("next-auth.session-token")?.value;
+  const publicRoutes = [ROUTES.LOGIN, ROUTES.FORGOT, ROUTES.SIGN_UP];
+  const isPublicRoute = publicRoutes.find((route) =>
+    request.url.includes(route)
+  );
 
-  if (token && request.url !== homeUrl) {
-    return NextResponse.redirect(homeUrl);
+  const privateUrlDefault = new URL("/", request.url);
+  const publicUrlDefault = new URL("/login", request.url);
+
+  if (token && !!isPublicRoute) {
+    return NextResponse.redirect(privateUrlDefault);
   }
-  if (!token && request.url !== loginUrl && !expiredToken) {
-    return NextResponse.redirect("http://localhost:3000/login");
-  }
-  if (expiredToken && request.url !== loginUrl) {
-    return NextResponse.redirect("http://localhost:3000/login");
+
+  if (!token && !isPublicRoute) {
+    return NextResponse.redirect(publicUrlDefault);
   }
 }
 
 export const config = {
-  matcher: ["/", "/login"],
+  matcher: "/((?!api|_next/static|_next/image|favicon.ico).*)",
 };

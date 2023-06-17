@@ -7,6 +7,7 @@ import { text } from "@/styles/text";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 import { z } from "zod";
 
 const signUpFormSchema = z.object({
@@ -22,13 +23,17 @@ export default function Form() {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<SignUpFormData>({
     resolver: zodResolver(signUpFormSchema),
   });
 
   const { h2 } = text();
 
-  const handleSubmitForm = (data) => {};
+  const handleSubmitForm = (data: SignUpFormData) => {
+    toast.success(`${data.name}\n${data.email}\n${data.password}`);
+    reset();
+  };
 
   return (
     <form className="space-y-6" onSubmit={handleSubmit(handleSubmitForm)}>

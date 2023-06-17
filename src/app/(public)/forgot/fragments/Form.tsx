@@ -7,6 +7,7 @@ import { text } from "@/styles/text";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 import { z } from "zod";
 
 const forgotFormSchema = z.object({
@@ -20,13 +21,17 @@ export default function Form() {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<ForgotFormData>({
     resolver: zodResolver(forgotFormSchema),
   });
 
   const { h2 } = text();
 
-  const handleSubmitForm = (data) => {};
+  const handleSubmitForm = (data: ForgotFormData) => {
+    toast.success(`${data.email}`);
+    reset();
+  };
 
   return (
     <form className="space-y-6" onSubmit={handleSubmit(handleSubmitForm)}>

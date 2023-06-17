@@ -1,12 +1,13 @@
-import { getHeaderToken } from "@/utils/helpers/getHeaderToken";
 import axios, { InternalAxiosRequestConfig } from "axios";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../authOptions";
 
 export const request = axios.create({
-  baseURL: "http://localhost:3333",
+  baseURL: "https://polls.apiblueprint.org",
 });
 
 const addHeaders = (config: InternalAxiosRequestConfig) => {
-  const token = getHeaderToken();
+  const token = getServerSession(authOptions);
 
   if (!token) {
     return config;

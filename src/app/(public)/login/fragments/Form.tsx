@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -13,10 +13,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import Link from "next/link";
 
-interface Props {
-  hasTokenError: boolean;
-}
-
 const loginFormSchema = z.object({
   email: z.string().email(),
   password: z.string().min(6),
@@ -24,7 +20,7 @@ const loginFormSchema = z.object({
 
 export type LoginFormData = z.infer<typeof loginFormSchema>;
 
-export default function Form({ hasTokenError }: Props) {
+export default function Form() {
   const {
     register,
     handleSubmit,
@@ -50,12 +46,6 @@ export default function Form({ hasTokenError }: Props) {
       router.push("/");
     }
   };
-
-  useEffect(() => {
-    if (hasTokenError) {
-      toast.error("Seu token expirou");
-    }
-  }, []);
 
   const { h2 } = text();
 
