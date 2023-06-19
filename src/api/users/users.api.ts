@@ -1,9 +1,8 @@
 import { api } from "..";
-import { apiErrorHandler } from "@/utils/helpers/errorHandler";
 
-export const getUsers = async () => {
+export const getUsers = async (init?: RequestInit) => {
   try {
-    const result = await api.get("/users");
+    const result = await api.get("users", init);
 
     return result;
   } catch (error) {

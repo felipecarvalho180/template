@@ -7,13 +7,14 @@ export const request = axios.create({
 });
 
 const addHeaders = async (config: InternalAxiosRequestConfig) => {
-  const token = await getServerSession<AuthOptions, User>(authOptions);
+  // const token = await getServerSession<AuthOptions, User>(authOptions);
+  const token = true;
 
   if (!token) {
     return config;
   }
 
-  config.headers.set("Authorization", `Bearer ${token.user?.access_token}`);
+  // config.headers.set("Authorization", `Bearer ${token.user?.access_token}`);
   return config;
 };
 

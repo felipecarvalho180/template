@@ -7,8 +7,10 @@ interface Memory {
   description: string;
 }
 
+// export const dynamic = "force-dynamic";
+
 export default async function Home() {
-  const users = await getUsers();
+  const users = await getUsers({ cache: "no-cache" });
 
   return (
     <div>

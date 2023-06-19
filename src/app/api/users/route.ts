@@ -1,6 +1,10 @@
+import { authOptions } from "@/server/authOptions";
 import { request } from "@/server/http";
 import { serverErrorHandler } from "@/utils";
+import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
+
+// export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
@@ -8,6 +12,7 @@ export async function GET() {
 
     return NextResponse.json(data);
   } catch (error) {
+    console.log(error);
     return serverErrorHandler(error);
   }
 }
