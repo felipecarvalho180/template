@@ -22,9 +22,6 @@ export default function Header({ headerLinks }: Props) {
           <Link href={href}>{text}</Link>
         </li>
       ))}
-      <li className={button({ bg: "headerLinks" })}>
-        {/* <ButtonLink onClick={onSignout}>Logout</ButtonLink> */}
-      </li>
     </ul>
   );
 }

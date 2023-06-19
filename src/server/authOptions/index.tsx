@@ -2,6 +2,16 @@ import { sleep } from "@/utils";
 import { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
+export type User = {
+  user: {
+    id: string;
+    email: string;
+    name: string;
+    lastName: string;
+    access_token: string;
+  };
+};
+
 const mockApi = {
   id: "Mock Id",
   email: "mock@gmail.com",

@@ -1,4 +1,4 @@
-import { getMemories } from "@/api/memories/memories.api";
+import { getUsers } from "@/api/users/users.api";
 import { Suspense } from "react";
 import LogoutButton from "./LogoutButton";
 
@@ -8,17 +8,17 @@ interface Memory {
 }
 
 export default async function Home() {
-  const memories: Memory[] = await getMemories();
+  const users = await getUsers();
 
   return (
     <div>
       <LogoutButton />
       <h1>Home</h1>
       <Suspense fallback={<p>Carregando</p>}>
-        {memories?.length === 0 || !memories ? (
+        {users?.length === 0 || !users ? (
           <p className="whitespace-pre-line">Nenhuma memória encontrada</p>
         ) : (
-          memories.map((memory, index) => (
+          users.map((memory, index) => (
             <div key={`${memory.name}_${memory.description}_${index}`}>
               <h1>{memory.name}</h1>
             </div>

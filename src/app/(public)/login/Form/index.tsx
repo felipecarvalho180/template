@@ -50,7 +50,10 @@ export default function Form() {
   const { h2 } = text();
 
   return (
-    <form className="space-y-6" onSubmit={handleSubmit(handleSubmitForm)}>
+    <form
+      className="space-y-6 lg:w-1/2"
+      onSubmit={handleSubmit(handleSubmitForm)}
+    >
       <h2 className={h2()}>Sign in to your account</h2>
 
       <Input

@@ -1,10 +1,6 @@
 import { headers } from "next/headers";
 
-const BASE_URL = "http://localhost:3000/api";
-
-interface Response<T> {
-  data: T;
-}
+const BASE_URL = "http://127.0.0.1:3000/api";
 
 export const api = {
   get: async <T = any>(input: RequestInfo, init?: RequestInit) => {
@@ -23,11 +19,9 @@ export const api = {
     throw res;
   },
   post: async <T = any>(input: RequestInfo, init?: RequestInit) => {
-    const currentHeaders = headers();
-
     const res = await fetch(`${BASE_URL}${input}`, {
       ...init,
-      headers: currentHeaders,
+
       method: "POST",
     });
 
@@ -39,11 +33,8 @@ export const api = {
     throw res;
   },
   put: async <T = any>(input: RequestInfo, init?: RequestInit) => {
-    const currentHeaders = headers();
-
     const res = await fetch(`${BASE_URL}${input}`, {
       ...init,
-      headers: currentHeaders,
       method: "PUT",
     });
 
@@ -55,11 +46,8 @@ export const api = {
     throw res;
   },
   patch: async <T = any>(input: RequestInfo, init?: RequestInit) => {
-    const currentHeaders = headers();
-
     const res = await fetch(`${BASE_URL}${input}`, {
       ...init,
-      headers: currentHeaders,
       method: "PATCH",
     });
 
@@ -71,11 +59,8 @@ export const api = {
     throw res;
   },
   delete: async <T = any>(input: RequestInfo, init?: RequestInit) => {
-    const currentHeaders = headers();
-
     const res = await fetch(`${BASE_URL}${input}`, {
       ...init,
-      headers: currentHeaders,
       method: "DELETE",
     });
 

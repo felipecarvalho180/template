@@ -1,19 +1,19 @@
 import axios, { InternalAxiosRequestConfig } from "axios";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../authOptions";
+import { AuthOptions, getServerSession } from "next-auth";
+import { User, authOptions } from "../authOptions";
 
 export const request = axios.create({
-  baseURL: "https://polls.apiblueprint.org",
+  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
 });
 
-const addHeaders = (config: InternalAxiosRequestConfig) => {
-  const token = getServerSession(authOptions);
+const addHeaders = async (config: InternalAxiosRequestConfig) => {
+  const token = await getServerSession<AuthOptions, User>(authOptions);
 
   if (!token) {
     return config;
   }
 
-  config.headers.set("Authorization", `Bearer ${token}`);
+  config.headers.set("Authorization", `Bearer ${token.user?.access_token}`);
   return config;
 };
 

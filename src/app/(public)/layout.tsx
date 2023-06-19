@@ -9,7 +9,7 @@ export default function Layout({ children }: Props) {
   const { form } = card();
 
   return (
-    <div className="flex w-full h-full justify-center items-center">
+    <div className="flex h-full justify-center items-center">
       <div className={form()}>{children}</div>
     </div>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import { LoginFormData } from "@/app/(public)/login/fragments/Form";
+import { LoginFormData } from "@/app/(public)/login/Form";
 import { input } from "@/styles/input";
 import React, { InputHTMLAttributes } from "react";
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
