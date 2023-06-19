@@ -6,15 +6,16 @@ export const request = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
 });
 
+export const dynamic = "force-dynamic";
+
 const addHeaders = async (config: InternalAxiosRequestConfig) => {
-  // const token = await getServerSession<AuthOptions, User>(authOptions);
-  const token = true;
+  const token = await getServerSession<AuthOptions, User>(authOptions);
 
   if (!token) {
     return config;
   }
 
-  // config.headers.set("Authorization", `Bearer ${token.user?.access_token}`);
+  config.headers.set("Authorization", `Bearer ${token.user?.access_token}`);
   return config;
 };
 
