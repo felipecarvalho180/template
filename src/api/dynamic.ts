@@ -1,6 +1,6 @@
 import { headers } from "next/headers";
 
-const BASE_URL = "http://127.0.0.1:3000/api";
+const BASE_URL = `${process.env.NEXT_PUBLIC_INTERNAL_URL}/api`;
 
 export const dynamicApi = {
   get: async <T = any>(input: RequestInfo, init?: RequestInit) => {

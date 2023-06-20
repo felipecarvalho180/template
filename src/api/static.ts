@@ -1,4 +1,4 @@
-const BASE_URL = "http://127.0.0.1:3000/api/static";
+const BASE_URL = `${process.env.NEXT_PUBLIC_INTERNAL_URL}/api/static`;
 
 export const staticApi = {
   get: async <T = any>(input: RequestInfo, init?: RequestInit) => {
