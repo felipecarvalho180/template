@@ -3,7 +3,7 @@ import { AuthOptions, getServerSession } from "next-auth";
 import { User, authOptions } from "../authOptions";
 
 export const dynamicRequest = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+  baseURL: process.env.baseUrl,
 });
 
 const addHeaders = async (config: InternalAxiosRequestConfig) => {
@@ -20,5 +20,5 @@ const addHeaders = async (config: InternalAxiosRequestConfig) => {
 dynamicRequest.interceptors.request.use(addHeaders);
 
 export const staticRequest = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+  baseURL: process.env.baseUrl,
 });

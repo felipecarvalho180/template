@@ -1,6 +1,6 @@
 import { headers } from "next/headers";
 
-const BASE_URL = `${process.env.NEXT_PUBLIC_INTERNAL_URL}/api`;
+const BASE_URL = `${process.env.internalUrl}/api`;
 
 export const dynamicApi = {
   get: async <T = any>(input: RequestInfo, init?: RequestInit) => {
