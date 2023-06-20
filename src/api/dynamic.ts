@@ -1,14 +1,18 @@
-import { headers } from "next/headers";
+import { User, authOptions } from "@/server/authOptions";
+import { AuthOptions, getServerSession } from "next-auth";
 
 const BASE_URL = `${process.env.internalUrl}/api`;
 
 export const dynamicApi = {
   get: async <T = any>(input: RequestInfo, init?: RequestInit) => {
-    const currentHeaders = headers();
+    const session = await getServerSession<AuthOptions, User>(authOptions);
 
     const res = await fetch(`${BASE_URL}/${input}`, {
       ...init,
-      headers: currentHeaders,
+      headers: {
+        ...init?.headers,
+        Authorization: `Bearer ${session?.user?.access_token}`,
+      },
     });
 
     if (res.ok) {
