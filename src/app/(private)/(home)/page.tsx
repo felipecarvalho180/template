@@ -16,7 +16,7 @@ export default async function Home() {
     <div>
       <LogoutButton />
       <h1>Home</h1>
-      <Suspense fallback={<p>Carregando</p>}>
+      <Suspense fallback={<p>Carregando...</p>}>
         {users?.length === 0 || !users ? (
           <p className="whitespace-pre-line">Nenhuma memória encontrada</p>
         ) : (
