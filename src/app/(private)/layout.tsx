@@ -7,7 +7,7 @@ interface Props {
 
 const headerLinks = [
   {
-    href: "/ssr",
+    href: "/",
     text: "SSR Page",
   },
   {
