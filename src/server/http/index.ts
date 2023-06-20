@@ -2,11 +2,9 @@ import axios, { InternalAxiosRequestConfig } from "axios";
 import { AuthOptions, getServerSession } from "next-auth";
 import { User, authOptions } from "../authOptions";
 
-export const request = axios.create({
+export const dynamicRequest = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
 });
-
-export const dynamic = "force-dynamic";
 
 const addHeaders = async (config: InternalAxiosRequestConfig) => {
   const token = await getServerSession<AuthOptions, User>(authOptions);
@@ -19,4 +17,8 @@ const addHeaders = async (config: InternalAxiosRequestConfig) => {
   return config;
 };
 
-request.interceptors.request.use(addHeaders);
+dynamicRequest.interceptors.request.use(addHeaders);
+
+export const staticRequest = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+});

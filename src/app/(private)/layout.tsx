@@ -11,8 +11,8 @@ const headerLinks = [
     text: "SSR Page",
   },
   {
-    href: "/styled",
-    text: "Styled Page",
+    href: "/static",
+    text: "Static",
   },
   {
     href: "/about",

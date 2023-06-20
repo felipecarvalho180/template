@@ -1,19 +1,12 @@
-import { getUsers } from "@/api/users/users.api";
+import { getUsersStatic } from "@/api/users/users.api";
 import { Suspense } from "react";
-import LogoutButton from "./LogoutButton";
-
-interface Memory {
-  name: string;
-  description: string;
-}
 
 export default async function Home() {
-  const users = await getUsers();
+  const users = await getUsersStatic();
 
   return (
     <div>
-      <LogoutButton />
-      <h1>Home</h1>
+      <h1>Static</h1>
       <Suspense fallback={<p>Carregando</p>}>
         {users?.length === 0 || !users ? (
           <p className="whitespace-pre-line">Nenhuma memória encontrada</p>
