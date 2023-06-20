@@ -1,5 +1,5 @@
 import axios from "axios";
 
-export const staticRequest = axios.create({
+export const request = axios.create({
   baseURL: process.env.baseUrl,
 });

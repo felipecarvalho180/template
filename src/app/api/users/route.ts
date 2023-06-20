@@ -1,4 +1,4 @@
-import { dynamicRequest } from "@/server/http/dynamic";
+import { request } from "@/server/http";
 import { serverErrorHandler } from "@/utils";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
   const token = req.headers.get("authorization");
 
   try {
-    const { data } = await dynamicRequest.get("users", {
+    const { data } = await request.get("users", {
       headers: {
         Authorization: token,
       },
