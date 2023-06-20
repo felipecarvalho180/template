@@ -1,4 +1,4 @@
-import { dynamicRequest } from "@/server/http";
+import { dynamicRequest } from "@/server/http/dynamic";
 import { serverErrorHandler } from "@/utils";
 import { NextResponse } from "next/server";
 
